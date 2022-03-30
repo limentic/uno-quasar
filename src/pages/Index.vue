@@ -1,9 +1,9 @@
 <template>
   <q-page class="flex flex-center background-gradient">
     <div class="flex flex-center column">
-      <h1 class="q-mt-xl q-mb-md text-bold text-white">JOUEZ AU UNO EN LIGNE</h1>
+      <h1 class="q-my-lg text-bold text-white">JOUEZ AU UNO EN LIGNE</h1>
       <div class="flex flex-center column" style="min-width: 30vw;">
-        <q-input v-model="username" dark borderless  input-class="text-center text-h4" color="white" placeholder="Saisissez votre pseudo" class="q-pb-md" style="width: 100%;" />
+        <q-input v-model="username" dark borderless  input-class="text-center text-h4 text-bold" color="white" placeholder="Saisissez votre pseudo..." class="q-pb-md" style="width: 100%;" />
         <q-btn color="white" label="Jouer !" text-color="black" to="/queue" />
       </div>
     </div>
@@ -28,7 +28,13 @@ export default defineComponent({
 
   methods: {
     helloWorld: function () {
-      console.log(this.helloWorldVar)
+      this.$axios.get('http://localhost:4000/api/')
+        .then((res) => {
+          console.log('test')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 })
