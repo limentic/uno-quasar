@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const helloWorld = require('../controllers/helloworld.controller')
+const playerController = require('../controllers/player.controller')
 
-router.get('/helloWorld', helloWorld.helloWorld)
+// I know this route dosen't follow the REST principals, but we are going WebSocket anyway.
+router.get('/join/:username', playerController.join)
 
 module.exports = router;

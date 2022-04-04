@@ -1,41 +1,35 @@
 # Uno Game (uno-quasar)
 
-An uno game
+Un jeu de uno en JS pour mon projet tutoré.
 
-## Install the dependencies
+## Installer les dépendances
 ```bash
-yarn
-# or
-npm install
+npm install --save-dev
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Démarrer l'application en mode développement (rechargement à chaud, etc.)
 ```bash
-quasar dev
+npm run dev
 ```
 
 
-### Lint the files
+### Linter les fichiers
 ```bash
-yarn lint
-# or
 npm run lint
 ```
 
 
-### Format the files
+### Embellir les fichiers
 ```bash
-yarn format
-# or
 npm run format
 ```
 
 
 
-### Build the app for production
+### Démarrer l'application en mode production
 ```bash
-quasar build
+npm run start
 ```
 
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
+### Vous voulez en savoir plus ?
+Voir [wiki projet tutoré](https://github.com/limentic/uno-quasar/wiki).
