@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser')
 const { Server } = require('socket.io')
 const Redis = require('ioredis')
 const path = require('path')
-const uuid = require('uuid')
+
+const { initializeGame } = require('./api/services/game.service')
 
 // CORS setup is only for development, because the quasar dev server is not on the
 // same port as the API.
@@ -25,18 +26,8 @@ const io = new Server({
 
 const redis = new Redis(process.env.REDIS_URL)
 redis.flushall()
-
+initializeGame(redis).then().catch()
 // Initialize Redis
-const currentUUID = uuid.v4()
-redis.set(`game-${currentUUID}`, JSON.stringify({
-  players: [],
-  playersCount: 0,
-  game: {
-    status: 'waiting_players'
-  }
-}))
-redis.set('currentUUID', currentUUID)
-
 
 // Setup all middlewares
 app.use(cors(corsOptions))
@@ -51,16 +42,18 @@ app.use(function(req, res, next) {
 })
 
 const router = require('./api/routes/routes')
-const websocketController = require('./api/controllers/websocket.controller')
-
 // Initialize static server
 app.use('/', express.static(path.join(__dirname, 'dist', 'spa')))
 // Initialize API router
 app.use('/api', router)
 
+// TODO : Properly implement router
+const GameWsController = require('./api/controllers/game.ws.controller')
+const PlayerWsController = require('./api/controllers/player.ws.controller')
 // Initialize Socket.io router
 const onConnection = (socket) => {
-  websocketController(io, socket)
+  GameWsController(io, socket)
+  PlayerWsController(io, socket)
 }
 io.on("connection", onConnection)
 
@@ -76,4 +69,3 @@ const server = app.listen(process.env.PORT, () => {
 })
 // Bind Socket.io to express instance
 io.attach(server)
-
