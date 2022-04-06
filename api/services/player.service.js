@@ -29,14 +29,16 @@ module.exports = {
     let connectedPlayers = await redis.lrange('connectedPlayers', 0, -1)
 
     if (connectedPlayers.length > 0) {
-      connectedPlayers.forEach((el) => {
+      for(let el of connectedPlayers) {
         el = JSON.parse(el)
-        if (el.uuid === playerUUID && el.gameUUID !== "") return {
-          uuid: el.uuid,
-          username: el.username,
-          gameUUID: el.gameUUID
+        if (el.uuid === playerUUID && el.gameUUID !== "") {
+          return {
+            uuid: el.uuid,
+            username: el.username,
+            gameUUID: el.gameUUID
+          }
         }
-      })
+      }
     }
     return false
   }

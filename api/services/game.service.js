@@ -58,10 +58,11 @@ module.exports = {
   },
 
   leaveGame: async function (redis, player) {
+    console.log(player)
     await redis.lrem('connectedPlayers', 1, JSON.stringify(player))
     let currentGameObject = JSON.parse(await redis.get(`game-${player.gameUUID}`))
 
-    currentGameObject.players.map((el) => {
+    currentGameObject.players = currentGameObject.players.filter((el) => {
       if (player.uuid !== el.uuid) return el
     })
 

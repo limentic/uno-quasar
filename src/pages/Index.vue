@@ -30,7 +30,7 @@
     methods: {
       joinQueue: function() {
         if (this.username !== '') {
-          this.$axios.get(`http://localhost:4000/api/connect/${this.username}`)
+          this.$axios.get(`http://localhost:8080/api/connect/${this.username}`)
             .then((res) => {
               if (res.data !== 'USERNAME_TAKEN') {
                 this.playerStore.player = {

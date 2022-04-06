@@ -12,7 +12,7 @@ const { initializeGame } = require('./api/services/game.service')
 // CORS setup is only for development, because the quasar dev server is not on the
 // same port as the API.
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: 'http://localhost:8000',
   originsSuccessStatus: 200,
 }
 
