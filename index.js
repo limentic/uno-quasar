@@ -63,8 +63,8 @@ io.use(function(socket, next) {
 })
 
 // Start Express server
-const server = app.listen(`${process.env.IP}:${process.env.PORT}`, () => {
-  console.log(`Express server started on ${process.env.PORT} port`)
+const server = app.listen(process.env.PORT, process.env.IP, () => {
+  console.log(`Express server listening on "${process.env.IP}:${process.env.PORT}"`)
 })
 // Bind Socket.io to express instance
 io.attach(server)
