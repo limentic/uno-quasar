@@ -1,3 +1,4 @@
+const GameServices = require('../services/game.service')
 module.exports = (io, socket) => {
 
   const connectToGame = async (payload) => {
@@ -13,6 +14,7 @@ module.exports = (io, socket) => {
       })
 
       if (currentGameObject.playersCount === 3) {
+        await GameServices.startGame(socket.redis, payload.gameUUID)
         io.emit(`game-${payload.gameUUID}`, {
           action: 'START_GAME',
           payload: 10

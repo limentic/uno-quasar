@@ -6,7 +6,8 @@ class Game {
     this.players = []
     this.playersCount = 0
     this.game = {
-      status: 'waiting_player'
+      status: 'waiting_player',
+      deck: []
     }
   }
 }
@@ -67,5 +68,14 @@ module.exports = {
     currentGameObject.playersCount--
     await redis.set(`game-${player.gameUUID}`, JSON.stringify(currentGameObject))
     return currentGameObject
+    // TODO : If 3 player, and in queue, remove the starting status
+  },
+
+  startGame: async function (redis, gameUUID) {
+    let currentGameObject = JSON.parse(await redis.get(`game-${gameUUID}`))
+    currentGameObject.game.status = 'started'
+    await redis.set(`game-${gameUUID}`, JSON.stringify(currentGameObject))
+
+    // TODO : Inititialize properly the game here. Create card deck, etc...
   }
 }

@@ -7,7 +7,10 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
-    children: [{ path: "/queue", component: () => import("pages/Queue.vue")}]
+    children: [
+      { path: "/queue", component: () => import("pages/Queue.vue") },
+      { path: "/game", component: () => import("pages/Game.vue") }
+    ]
   },
 
   // Always leave this as last one,

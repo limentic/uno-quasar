@@ -50,7 +50,6 @@ app.use('/api', router)
 // TODO : Properly implement router
 const GameWsController = require('./api/controllers/game.ws.controller')
 const PlayerWsController = require('./api/controllers/player.ws.controller')
-// Initialize Socket.io router
 const onConnection = (socket) => {
   GameWsController(io, socket)
   PlayerWsController(io, socket)
@@ -64,7 +63,7 @@ io.use(function(socket, next) {
 })
 
 // Start Express server
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(`${process.env.IP}:${process.env.PORT}`, () => {
   console.log(`Express server started on ${process.env.PORT} port`)
 })
 // Bind Socket.io to express instance
