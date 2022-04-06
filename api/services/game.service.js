@@ -7,7 +7,12 @@ class Game {
     this.playersCount = 0
     this.game = {
       status: 'waiting_player',
-      deck: []
+      deck: [{
+        id: 0,
+        name: '2',
+        color: '',
+        where: 'p3 '
+      }]
     }
   }
 }
@@ -58,7 +63,6 @@ module.exports = {
   },
 
   leaveGame: async function (redis, player) {
-    console.log(player)
     await redis.lrem('connectedPlayers', 1, JSON.stringify(player))
     let currentGameObject = JSON.parse(await redis.get(`game-${player.gameUUID}`))
 
