@@ -4,7 +4,8 @@ export const usePlayerStore = defineStore('player', {
 
   state: () => ({
     player: {},
-    gameUUID: ''
+    gameUUID: '',
+    opponents: []
   }),
 
   getters: {},
@@ -15,6 +16,9 @@ export const usePlayerStore = defineStore('player', {
     },
     setPlayer(payload) {
       this.player = payload
+    },
+    setOpponents(payload) {
+      this.opponents = payload
     }
   },
 });

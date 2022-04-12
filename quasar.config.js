@@ -36,7 +36,7 @@ module.exports = configure(function (ctx) {
       server: {
         type: 'http'
       },
-      port: 8000,
+      port: 8080,
       open: true
     },
 

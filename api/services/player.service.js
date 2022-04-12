@@ -1,4 +1,3 @@
-// TODO : Implement redis as a module
 const uuid = require('uuid')
 
 class Player {
@@ -6,6 +5,7 @@ class Player {
     this.uuid = uuid.v4()
     this.username = username
     this.gameUUID = ''
+    this.hand = []
   }
 }
 
@@ -14,7 +14,7 @@ module.exports = {
 
   isConnected: async function (redis, username) {
     // TODO : Replace this with proper auth in v2
-    let connectedPlayers = await redis.lrange('connectedPlayers', 0, -1)
+    let connectedPlayers = await redis.lRange('connectedPlayers', 0, -1)
 
     /* I know, I use a "for" instead of "forEach()", because there is no way to
     stop or break a "forEach()" loop other than by throwing an exception.
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   findPlayer: async function (redis, playerUUID) {
-    let connectedPlayers = await redis.lrange('connectedPlayers', 0, -1)
+    let connectedPlayers = await redis.lRange('connectedPlayers', 0, -1)
 
     if (connectedPlayers.length > 0) {
       for(let el of connectedPlayers) {
@@ -35,11 +35,26 @@ module.exports = {
           return {
             uuid: el.uuid,
             username: el.username,
-            gameUUID: el.gameUUID
+            gameUUID: el.gameUUID,
+            hand: el.hand
           }
         }
       }
     }
     return false
-  }
+  },
+
+  getPlayers: async function (redis, gameUUID) {
+    let currentGameObject = JSON.parse(await redis.get(`game-${gameUUID}`))
+
+    let tempArray = []
+    currentGameObject.players.forEach((player) => {
+      tempArray.push({
+        uuid: player.uuid,
+        username: player.username
+      })
+    })
+
+    return tempArray
+  },
 }

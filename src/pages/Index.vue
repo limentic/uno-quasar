@@ -35,7 +35,7 @@
               if (res.data !== 'USERNAME_TAKEN') {
                 this.playerStore.player = {
                   username: res.data.username,
-                  uuid: res.data.playerUUID
+                  uuid: res.data.uuid
                 }
                 this.playerStore.gameUUID = res.data.gameUUID
                 this.$router.push('/queue')

@@ -1,7 +1,6 @@
 const GameServices = require('../services/game.service')
 const PlayerServices = require('../services/player.service')
 
-
 module.exports = {
   connect: async function (req, res) {
     const trigger = await PlayerServices.isConnected(req.redis, req.params.username)
