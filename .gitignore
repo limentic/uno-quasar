@@ -2,6 +2,7 @@
 .thumbs.db
 node_modules
 .start-redis.sh
+.env
 
 # Quasar core related directories
 .quasar
